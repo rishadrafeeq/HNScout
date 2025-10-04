@@ -73,6 +73,19 @@ export function StoryCard({ story, index }: StoryCardProps) {
               <span className="sm:hidden truncate">{story.timeAgo.split(' ')[0]}</span>
             </div>
           </div>
+          
+          {/* View on Hacker News Button */}
+          <div className="mt-3">
+            <Link
+              href={`https://news.ycombinator.com/item?id=${story.objectID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center bg-orange-600 text-white px-3 py-1.5 rounded-lg hover:bg-orange-700 transition-colors text-xs sm:text-sm font-medium"
+            >
+              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              View on Hacker News
+            </Link>
+          </div>
         </div>
         
         <div className="flex-shrink-0 self-start sm:self-auto">
