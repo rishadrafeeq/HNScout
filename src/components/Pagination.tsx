@@ -33,7 +33,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
         <>
           <Link
             href={getPageHref(0)}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-[#666666] bg-white border border-[#dcdcdc] rounded-l-md hover:bg-gray-50 hover:text-[#333333] transition-colors"
             aria-label="Go to first page"
           >
             <ChevronsLeft className="w-4 h-4" />
@@ -45,7 +45,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {hasPreviousPage && (
         <Link
           href={getPageHref(previousPage!)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-[#666666] bg-white border border-[#dcdcdc] hover:bg-gray-50 hover:text-[#333333] transition-colors"
           aria-label="Go to previous page"
         >
           <ChevronLeft className="w-4 h-4" />
@@ -62,8 +62,8 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
             href={getPageHref(pageNum)}
             className={`inline-flex items-center px-3 py-2 text-sm font-medium border transition-colors ${
               isCurrentPage
-                ? 'text-blue-600 bg-blue-50 border-blue-300'
-                : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-50 hover:text-gray-700'
+                ? 'text-[#ff6600] bg-orange-50 border-[#ff6600]'
+                : 'text-[#666666] bg-white border-[#dcdcdc] hover:bg-gray-50 hover:text-[#333333]'
             }`}
             aria-label={`Go to page ${pageNum + 1}`}
             aria-current={isCurrentPage ? 'page' : undefined}
@@ -77,7 +77,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {hasNextPage && (
         <Link
           href={getPageHref(nextPage!)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-[#666666] bg-white border border-[#dcdcdc] hover:bg-gray-50 hover:text-[#333333] transition-colors"
           aria-label="Go to next page"
         >
           <span className="mr-1">Next</span>
@@ -89,7 +89,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {endPage < totalPages - 1 && (
         <Link
           href={getPageHref(totalPages - 1)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-3 py-2 text-sm font-medium text-[#666666] bg-white border border-[#dcdcdc] rounded-r-md hover:bg-gray-50 hover:text-[#333333] transition-colors"
           aria-label="Go to last page"
         >
           <ChevronsRight className="w-4 h-4" />
