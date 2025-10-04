@@ -5,6 +5,39 @@ import { User, Calendar, Trophy, MessageSquare, FileText, Clock } from 'lucide-r
 import { formatDistanceToNow } from 'date-fns';
 import { notFound } from 'next/navigation';
 
+function formatAuthorJoinDate(createdAt: string | number): string {
+  try {
+    let date: Date;
+    
+    if (typeof createdAt === 'string') {
+      // Try parsing as ISO string first
+      const parsed = new Date(createdAt);
+      if (!isNaN(parsed.getTime())) {
+        date = parsed;
+      } else {
+        // Try parsing as timestamp string
+        const timestamp = parseInt(createdAt);
+        if (isNaN(timestamp)) {
+          return 'Unknown';
+        }
+        date = new Date(timestamp > 1000000000000 ? timestamp : timestamp * 1000);
+      }
+    } else {
+      // Handle numeric timestamp
+      date = new Date(createdAt > 1000000000000 ? createdAt : createdAt * 1000);
+    }
+    
+    if (isNaN(date.getTime())) {
+      return 'Unknown';
+    }
+    
+    return formatDistanceToNow(date, { addSuffix: true });
+  } catch (error) {
+    console.error('Error formatting author join date:', error);
+    return 'Unknown';
+  }
+}
+
 interface AuthorPageProps {
   params: Promise<{ username: string }>;
 }
@@ -75,7 +108,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
             <div className="bg-gray-50 rounded-lg p-4 text-center">
               <Calendar className="w-6 h-6 text-purple-500 mx-auto mb-2" />
               <div className="text-lg sm:text-xl font-bold text-gray-900">
-                {formatDistanceToNow(new Date(author.created_at * 1000), { addSuffix: true })}
+                {formatAuthorJoinDate(author.created_at)}
               </div>
               <div className="text-sm text-gray-600">Member since</div>
             </div>
