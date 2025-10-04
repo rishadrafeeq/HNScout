@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { PaginationData } from '@/lib/pagination';
+import { PageGoto } from './PageGoto';
 
 interface PaginationProps {
   pagination: PaginationData;
@@ -95,6 +96,11 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
           <ChevronsRight className="w-4 h-4" />
         </Link>
       )}
+
+      {/* Go to page */}
+      <div className="ml-4">
+        <PageGoto currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
+      </div>
     </nav>
   );
 }
