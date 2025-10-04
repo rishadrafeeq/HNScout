@@ -3,10 +3,14 @@
 interface ErrorStateProps {
   title: string;
   message: string;
-  onRetry?: () => void;
+  showRetry?: boolean;
 }
 
-export function ErrorState({ title, message, onRetry }: ErrorStateProps) {
+export function ErrorState({ title, message, showRetry = true }: ErrorStateProps) {
+  const handleRetry = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="text-center py-12">
       <div className="text-red-600 mb-4">
@@ -15,9 +19,9 @@ export function ErrorState({ title, message, onRetry }: ErrorStateProps) {
         </svg>
         <h3 className="text-lg font-semibold mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{message}</p>
-        {onRetry && (
+        {showRetry && (
           <button 
-            onClick={onRetry} 
+            onClick={handleRetry} 
             className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Try Again

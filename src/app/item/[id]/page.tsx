@@ -146,7 +146,6 @@ export default async function ItemPage({ params }: ItemPageProps) {
         <ErrorState
           title="Failed to load story"
           message="We encountered an error while fetching the story. Please try again later."
-          onRetry={() => window.location.reload()}
         />
       </div>
     );

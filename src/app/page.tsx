@@ -42,7 +42,6 @@ async function LatestStoriesList() {
       <ErrorState
         title="Failed to load stories"
         message="We encountered an error while fetching the latest stories. Please try again later."
-        onRetry={() => window.location.reload()}
       />
     );
   }

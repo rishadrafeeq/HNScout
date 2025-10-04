@@ -62,7 +62,6 @@ export default async function PaginatedPage({ params }: PageProps) {
         <ErrorState
           title="Failed to load stories"
           message="We encountered an error while fetching the stories. Please try again later."
-          onRetry={() => window.location.reload()}
         />
       </div>
     );
