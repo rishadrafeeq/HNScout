@@ -18,12 +18,9 @@ export function Header() {
               >
                 Latest Stories
               </Link>
-              <Link 
-                href="/1" 
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Browse Pages
-              </Link>
+              <span className="text-gray-400 text-sm">
+                Browse pages below ↓
+              </span>
             </nav>
           </div>
           
