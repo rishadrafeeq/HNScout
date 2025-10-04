@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { ExternalLink, MessageCircle, Clock, User, ArrowUp } from 'lucide-react';
 import { ProcessedStory } from '@/types/hn';
