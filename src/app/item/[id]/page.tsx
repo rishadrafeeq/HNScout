@@ -29,94 +29,98 @@ export default async function ItemPage({ params }: ItemPageProps) {
     const processedComments = comments.map(processComment);
 
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
-        <div className="mb-6">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
+        <div className="mb-4 sm:mb-6">
           <Link 
             href="/" 
-            className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+            className="inline-flex items-center text-xs sm:text-sm text-blue-600 hover:text-blue-800 transition-colors"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
             Back to Stories
           </Link>
         </div>
 
-        <article className="bg-white rounded-lg border border-gray-200 p-6 mb-8">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <h1 className="text-2xl font-bold text-gray-900 leading-tight">
+        <article className="bg-white rounded-lg border border-white p-4 sm:p-6 mb-6 sm:mb-8 shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
+            <h1 className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 leading-tight">
               {story.title}
             </h1>
-            <QualityScoreBadge score={processedStory.qualityScore} />
+            <div className="self-start sm:self-auto">
+              <QualityScoreBadge score={processedStory.qualityScore} />
+            </div>
           </div>
 
           {story.url && (
-            <div className="mb-4">
+            <div className="mb-3 sm:mb-4">
               <a
                 href={story.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+                className="inline-flex items-center text-xs sm:text-sm text-blue-600 hover:text-blue-800 transition-colors"
               >
-                <ExternalLink className="w-4 h-4 mr-2" />
+                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
                 {processedStory.domain || 'View Original'}
               </a>
             </div>
           )}
 
-          <div className="flex items-center gap-6 text-sm text-gray-500 mb-6">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mb-4 sm:mb-6">
             <div className="flex items-center gap-1">
-              <User className="w-4 h-4" />
+              <User className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{story.author}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ArrowUp className="w-4 h-4" />
+              <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{story.points} points</span>
             </div>
             <div className="flex items-center gap-1">
-              <MessageCircle className="w-4 h-4" />
+              <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
               <span>{story.num_comments} comments</span>
             </div>
             <div className="flex items-center gap-1">
-              <Clock className="w-4 h-4" />
-              <span>{processedStory.timeAgo}</span>
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">{processedStory.timeAgo}</span>
+              <span className="sm:hidden">{processedStory.timeAgo.split(' ')[0]}</span>
             </div>
           </div>
 
-          <div className="border-t border-gray-200 pt-4">
+          <div className="border-t border-white pt-3 sm:pt-4">
             <a
               href={`https://news.ycombinator.com/item?id=${id}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors"
+              className="inline-flex items-center bg-orange-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-orange-600 transition-colors text-xs sm:text-sm"
             >
-              <ExternalLink className="w-4 h-4 mr-2" />
+              <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
               View on Hacker News
             </a>
           </div>
         </article>
 
         {processedComments.length > 0 && (
-          <section className="bg-white rounded-lg border border-gray-200 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          <section className="bg-white rounded-lg border border-white p-4 sm:p-6 shadow-sm">
+            <h2 className="text-lg sm:text-xl font-semibold text-gray-900 mb-3 sm:mb-4">
               Latest Comments ({processedComments.length})
             </h2>
             
             <Suspense fallback={<StoryListSkeleton count={3} />}>
               <div className="space-y-4">
                 {processedComments.map((comment) => (
-                  <div key={comment.objectID} className="border-l-4 border-gray-200 pl-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+                  <div key={comment.objectID} className="border-l-4 border-white pl-3 sm:pl-4">
+                    <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-2">
                       <span className="font-medium">{comment.author}</span>
-                      <span>•</span>
-                      <span>{comment.timeAgo}</span>
+                      <span className="hidden sm:inline">•</span>
+                      <span className="hidden sm:inline">{comment.timeAgo}</span>
+                      <span className="sm:hidden">{comment.timeAgo.split(' ')[0]}</span>
                       {comment.points > 0 && (
                         <>
-                          <span>•</span>
+                          <span className="hidden sm:inline">•</span>
                           <span>{comment.points} points</span>
                         </>
                       )}
                     </div>
                     <div 
-                      className="text-gray-700 prose prose-sm max-w-none"
+                      className="text-gray-700 prose prose-sm max-w-none text-xs sm:text-sm"
                       dangerouslySetInnerHTML={{ __html: comment.comment_text }}
                     />
                   </div>
@@ -125,12 +129,12 @@ export default async function ItemPage({ params }: ItemPageProps) {
             </Suspense>
 
             {story.num_comments > 5 && (
-              <div className="mt-4 pt-4 border-t border-gray-200">
+              <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white">
                 <a
                   href={`https://news.ycombinator.com/item?id=${id}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 hover:text-blue-800 transition-colors"
+                  className="text-xs sm:text-sm text-blue-600 hover:text-blue-800 transition-colors"
                 >
                   View all {story.num_comments} comments on Hacker News →
                 </a>
@@ -142,7 +146,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
     );
   } catch {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
+      <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
         <ErrorState
           title="Failed to load story"
           message="We encountered an error while fetching the story. Please try again later."

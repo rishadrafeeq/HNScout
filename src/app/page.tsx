@@ -15,12 +15,12 @@ export default async function Home({ searchParams }: HomeProps) {
   const { search } = await searchParams;
   
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
-      <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+    <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
           {search ? `Search Results for "${search}"` : 'Latest Hacker News Stories'}
         </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
           {search 
             ? `Searching through Hacker News stories for "${search}"`
             : 'Discover the most engaging stories from Hacker News, ranked by our intelligent quality score that considers points, comments, and recency.'

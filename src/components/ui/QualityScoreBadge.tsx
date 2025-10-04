@@ -11,14 +11,14 @@ export function QualityScoreBadge({ score, showLabel = true }: QualityScoreBadge
 
   return (
     <div 
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${colorClasses}`}
+      className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium border ${colorClasses}`}
       title={`Quality Score: ${score.toFixed(1)}`}
     >
       <span className="font-semibold">{score.toFixed(1)}</span>
       {showLabel && (
         <>
-          <span className="mx-1">•</span>
-          <span>{label}</span>
+          <span className="mx-1 hidden sm:inline">•</span>
+          <span className="hidden sm:inline">{label}</span>
         </>
       )}
     </div>

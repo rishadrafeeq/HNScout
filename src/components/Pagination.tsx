@@ -34,10 +34,10 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
         <>
           <Link
             href={getPageHref(0)}
-            className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-l-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
+            className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white rounded-l-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
             aria-label="Go to first page"
           >
-            <ChevronsLeft className="w-4 h-4" />
+            <ChevronsLeft className="w-3 h-3 sm:w-4 sm:h-4" />
           </Link>
         </>
       )}
@@ -46,11 +46,11 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {hasPreviousPage && (
         <Link
           href={getPageHref(previousPage!)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white hover:bg-gray-50 hover:text-gray-700 transition-colors"
           aria-label="Go to previous page"
         >
-          <ChevronLeft className="w-4 h-4" />
-          <span className="ml-1">Previous</span>
+          <ChevronLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+          <span className="ml-1 hidden sm:inline">Previous</span>
         </Link>
       )}
 
@@ -61,10 +61,10 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
           <Link
             key={pageNum}
             href={getPageHref(pageNum)}
-            className={`inline-flex items-center px-3 py-2 text-sm font-medium border transition-colors ${
+            className={`inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium border transition-colors ${
               isCurrentPage
                 ? 'text-blue-600 bg-blue-50 border-blue-300'
-                : 'text-gray-500 bg-white border-gray-300 hover:bg-gray-50 hover:text-gray-700'
+                : 'text-gray-500 bg-white border-white hover:bg-gray-50 hover:text-gray-700'
             }`}
             aria-label={`Go to page ${pageNum + 1}`}
             aria-current={isCurrentPage ? 'page' : undefined}
@@ -78,11 +78,11 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {hasNextPage && (
         <Link
           href={getPageHref(nextPage!)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white hover:bg-gray-50 hover:text-gray-700 transition-colors"
           aria-label="Go to next page"
         >
-          <span className="mr-1">Next</span>
-          <ChevronRight className="w-4 h-4" />
+          <span className="mr-1 hidden sm:inline">Next</span>
+          <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </Link>
       )}
 
@@ -90,15 +90,15 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       {endPage < totalPages - 1 && (
         <Link
           href={getPageHref(totalPages - 1)}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
+          className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white rounded-r-md hover:bg-gray-50 hover:text-gray-700 transition-colors"
           aria-label="Go to last page"
         >
-          <ChevronsRight className="w-4 h-4" />
+          <ChevronsRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </Link>
       )}
 
       {/* Go to page */}
-      <div className="ml-4">
+      <div className="ml-2 sm:ml-4">
         <PageGoto currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
       </div>
     </nav>
