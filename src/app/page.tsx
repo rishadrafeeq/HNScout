@@ -10,6 +10,16 @@ import { Suspense } from 'react';
 export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          Latest Hacker News Stories
+        </h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          Discover the most engaging stories from Hacker News, ranked by our intelligent quality score 
+          that considers points, comments, and recency.
+        </p>
+      </div>
+
       <Suspense fallback={<StoryListSkeleton count={20} />}>
         <LatestStoriesList />
       </Suspense>
