@@ -1,4 +1,4 @@
-import { getQualityScoreColor, getQualityScoreLabel } from '@/lib/qualityScore';
+import { getQualityScoreLabel } from '@/lib/qualityScore';
 
 interface QualityScoreBadgeProps {
   score: number;
@@ -6,12 +6,11 @@ interface QualityScoreBadgeProps {
 }
 
 export function QualityScoreBadge({ score, showLabel = true }: QualityScoreBadgeProps) {
-  const colorClasses = getQualityScoreColor(score);
   const label = getQualityScoreLabel(score);
 
   return (
     <div 
-      className={`inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium border ${colorClasses}`}
+      className="inline-flex items-center px-2 sm:px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-600 text-white border border-green-600"
       title={`Quality Score: ${score.toFixed(1)}`}
     >
       <span className="font-semibold">{score.toFixed(1)}</span>
