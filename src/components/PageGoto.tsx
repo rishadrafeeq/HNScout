@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
 
@@ -13,7 +13,12 @@ interface PageGotoProps {
 export function PageGoto({ currentPage, totalPages, basePath }: PageGotoProps) {
   const [pageInput, setPageInput] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +43,22 @@ export function PageGoto({ currentPage, totalPages, basePath }: PageGotoProps) {
       }, 100);
     }
   };
+
+  // Prevent hydration mismatch by not rendering until client-side
+  if (!isMounted) {
+    return (
+      <div className="relative">
+        <button
+          className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white hover:bg-gray-50 hover:text-gray-700 transition-colors rounded-md"
+          title="Go to page"
+          disabled
+        >
+          <span className="hidden sm:inline">Go to</span>
+          <span className="sm:hidden">Go</span>
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
