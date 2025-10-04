@@ -38,7 +38,7 @@ function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: nu
           value={pageInput}
           onChange={(e) => setPageInput(e.target.value)}
           placeholder={`1-${totalPages}`}
-          className="w-16 sm:w-20 px-2 py-1 text-xs sm:text-sm border border-white rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-16 sm:w-20 px-2 py-1 text-xs sm:text-sm border border-white rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-gray-500"
           autoFocus
         />
         <button
