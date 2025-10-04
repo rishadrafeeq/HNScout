@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowRight } from 'lucide-react';
 import { PaginationData } from '@/lib/pagination';
@@ -14,6 +14,11 @@ interface PaginationProps {
 function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: number; totalPages: number; basePath: string }) {
   const [pageInput, setPageInput] = useState('');
   const [isActive, setIsActive] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +32,20 @@ function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: nu
     setPageInput('');
     setIsActive(false);
   };
+
+  // Prevent hydration mismatch by not rendering until client-side
+  if (!isMounted) {
+    return (
+      <button
+        className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white hover:bg-gray-50 hover:text-gray-700 transition-colors rounded-md"
+        title="Go to page"
+        disabled
+      >
+        <span className="hidden sm:inline">Go to</span>
+        <span className="sm:hidden">Go</span>
+      </button>
+    );
+  }
 
   if (isActive) {
     return (
