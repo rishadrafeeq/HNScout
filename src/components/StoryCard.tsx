@@ -117,8 +117,8 @@ export function StoryCard({ story, index }: StoryCardProps) {
             </div>
             <div className="flex items-center gap-1">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-              <span className="hidden sm:inline truncate">{story.timeAgo}</span>
-              <span className="sm:hidden truncate">{story.timeAgo.split(' ')[0]}</span>
+              <span className="hidden sm:inline truncate">{story.timeAgo || 'Unknown'}</span>
+              <span className="sm:hidden truncate">{story.timeAgo ? story.timeAgo.split(' ')[0] : 'Unknown'}</span>
             </div>
           </div>
         </div>

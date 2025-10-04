@@ -4,7 +4,7 @@ import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Zap, Bookmark, Clock } from 'lucide-react';
-import { SearchBar } from './SearchBar';
+import { AdvancedSearchBar } from './AdvancedSearchBar';
 import { FilterDropdown } from './FilterDropdown';
 
 function HeaderContent() {
@@ -52,15 +52,12 @@ function HeaderContent() {
                 <Bookmark className="w-4 h-4" />
                 <span>Reading List</span>
               </Link>
-              <span className="text-gray-400 text-sm">
-                Browse pages below ↓
-              </span>
             </nav>
           </div>
           
           <div className="flex items-center space-x-2 sm:space-x-3">
             <FilterDropdown />
-            <SearchBar />
+            <AdvancedSearchBar />
           </div>
         </div>
       </div>
@@ -81,12 +78,11 @@ export function Header() {
               </Link>
               <nav className="hidden lg:flex items-center space-x-6">
                 <span className="text-gray-600">Latest Stories</span>
-                <span className="text-gray-400 text-sm">Browse pages below ↓</span>
               </nav>
             </div>
             <div className="flex items-center space-x-2 sm:space-x-3">
               <div className="w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
-              <div className="w-20 h-8 bg-gray-200 rounded animate-pulse"></div>
+              <div className="w-32 h-8 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>
         </div>

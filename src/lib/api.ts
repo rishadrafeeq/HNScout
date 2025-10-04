@@ -13,16 +13,149 @@ export class HNAlgoliaAPI {
   }
 
   /**
-   * Search for stories with pagination
+   * Search for stories with advanced filtering options
    */
   async searchStories(
+    query: string = '',
+    page: number = 0,
+    hitsPerPage: number = 20,
+    options: {
+      tags?: string[];
+      numericFilters?: string[];
+      sortByDate?: boolean;
+      author?: string;
+      dateRange?: { from?: number; to?: number };
+      minPoints?: number;
+      minComments?: number;
+    } = {}
+  ): Promise<HNSearchResponse> {
+    const params = new URLSearchParams({
+      query,
+      hitsPerPage: hitsPerPage.toString(),
+      page: page.toString(),
+    });
+
+    // Add tags filter
+    if (options.tags && options.tags.length > 0) {
+      params.append('tags', options.tags.join(','));
+    } else {
+      params.append('tags', 'story'); // Default to stories only
+    }
+
+    // Add author filter
+    if (options.author) {
+      params.append('tags', `author_${options.author}`);
+    }
+
+    // Add numeric filters
+    const numericFilters: string[] = [];
+    
+    if (options.minPoints) {
+      numericFilters.push(`points>=${options.minPoints}`);
+    }
+    
+    if (options.minComments) {
+      numericFilters.push(`num_comments>=${options.minComments}`);
+    }
+    
+    if (options.dateRange?.from) {
+      numericFilters.push(`created_at_i>=${options.dateRange.from}`);
+    }
+    
+    if (options.dateRange?.to) {
+      numericFilters.push(`created_at_i<=${options.dateRange.to}`);
+    }
+
+    if (numericFilters.length > 0) {
+      params.append('numericFilters', numericFilters.join(','));
+    }
+
+    // Choose endpoint based on sort preference
+    const endpoint = options.sortByDate ? '/search_by_date' : '/search';
+    
+    const response = await fetch(`${BASE_URL}${endpoint}?${params}`, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch stories: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Search for comments with advanced filtering
+   */
+  async searchComments(
+    query: string = '',
+    page: number = 0,
+    hitsPerPage: number = 20,
+    options: {
+      author?: string;
+      storyId?: string;
+      dateRange?: { from?: number; to?: number };
+      minPoints?: number;
+    } = {}
+  ): Promise<HNSearchResponse> {
+    const params = new URLSearchParams({
+      query,
+      tags: 'comment',
+      hitsPerPage: hitsPerPage.toString(),
+      page: page.toString(),
+    });
+
+    // Add author filter
+    if (options.author) {
+      params.append('tags', `author_${options.author}`);
+    }
+
+    // Add story filter
+    if (options.storyId) {
+      params.append('tags', `story_${options.storyId}`);
+    }
+
+    // Add numeric filters
+    const numericFilters: string[] = [];
+    
+    if (options.minPoints) {
+      numericFilters.push(`points>=${options.minPoints}`);
+    }
+    
+    if (options.dateRange?.from) {
+      numericFilters.push(`created_at_i>=${options.dateRange.from}`);
+    }
+    
+    if (options.dateRange?.to) {
+      numericFilters.push(`created_at_i<=${options.dateRange.to}`);
+    }
+
+    if (numericFilters.length > 0) {
+      params.append('numericFilters', numericFilters.join(','));
+    }
+
+    const response = await fetch(`${BASE_URL}/search_by_date?${params}`, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch comments: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Search for front page stories
+   */
+  async searchFrontPageStories(
     query: string = '',
     page: number = 0,
     hitsPerPage: number = 20
   ): Promise<HNSearchResponse> {
     const params = new URLSearchParams({
       query,
-      tags: 'story',
+      tags: 'front_page',
       hitsPerPage: hitsPerPage.toString(),
       page: page.toString(),
     });
@@ -32,7 +165,34 @@ export class HNAlgoliaAPI {
     });
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch stories: ${response.status} ${response.statusText}`);
+      throw new Error(`Failed to fetch front page stories: ${response.status} ${response.statusText}`);
+    }
+
+    return response.json();
+  }
+
+  /**
+   * Search for stories by URL
+   */
+  async searchByUrl(
+    url: string,
+    page: number = 0,
+    hitsPerPage: number = 20
+  ): Promise<HNSearchResponse> {
+    const params = new URLSearchParams({
+      query: url,
+      tags: 'story',
+      restrictSearchableAttributes: 'url',
+      hitsPerPage: hitsPerPage.toString(),
+      page: page.toString(),
+    });
+
+    const response = await fetch(`${BASE_URL}/search?${params}`, {
+      next: { revalidate: 300 }, // Cache for 5 minutes
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to search by URL: ${response.status} ${response.statusText}`);
     }
 
     return response.json();
@@ -117,6 +277,52 @@ export class HNAlgoliaAPI {
       return author;
     } catch (error) {
       console.error('Error fetching author details:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get author submissions
+   */
+  async getAuthorSubmissions(username: string, page: number = 0, hitsPerPage: number = 20): Promise<HNSearchResponse> {
+    try {
+      const url = `${BASE_URL}/search?query=author_${encodeURIComponent(username)}&tags=story&page=${page}&hitsPerPage=${hitsPerPage}`;
+      
+      const response = await fetch(url, {
+        next: { revalidate: 300 }, // Cache for 5 minutes
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch author submissions: ${response.statusText}`);
+      }
+
+      const data: HNSearchResponse = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching author submissions:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Get author comments
+   */
+  async getAuthorComments(username: string, page: number = 0, hitsPerPage: number = 20): Promise<HNSearchResponse> {
+    try {
+      const url = `${BASE_URL}/search?query=author_${encodeURIComponent(username)}&tags=comment&page=${page}&hitsPerPage=${hitsPerPage}`;
+      
+      const response = await fetch(url, {
+        next: { revalidate: 300 }, // Cache for 5 minutes
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch author comments: ${response.statusText}`);
+      }
+
+      const data: HNSearchResponse = await response.json();
+      return data;
+    } catch (error) {
+      console.error('Error fetching author comments:', error);
       throw error;
     }
   }

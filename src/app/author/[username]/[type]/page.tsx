@@ -40,13 +40,18 @@ function formatAuthorJoinDate(createdAt: string | number): string {
 }
 
 interface AuthorPageProps {
-  params: Promise<{ username: string }>;
+  params: Promise<{ username: string; type: string }>;
 }
 
 export const dynamic = 'force-dynamic';
 
-export default async function AuthorPage({ params }: AuthorPageProps) {
-  const { username } = await params;
+export default async function AuthorTypePage({ params }: AuthorPageProps) {
+  const { username, type } = await params;
+
+  // Validate type parameter
+  if (!['submissions', 'comments'].includes(type)) {
+    notFound();
+  }
 
   try {
     const author = await hnApi.getAuthorDetails(username);
@@ -57,7 +62,7 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
 
     return (
       <div className="max-w-4xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 sm:p-8">
+        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-6 sm:p-8 mb-6">
           {/* Author Header */}
           <div className="flex items-start gap-4 sm:gap-6 mb-6">
             <div className="w-16 h-16 sm:w-20 sm:h-20 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">

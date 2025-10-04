@@ -50,21 +50,36 @@ export function extractDomain(url?: string): string | undefined {
  * Process a story with quality score and additional metadata
  */
 export function processStory(story: HNStory): ProcessedStory {
+  const timeAgo = story.created_at_i 
+    ? formatDistanceToNow(new Date(story.created_at_i * 1000), { addSuffix: true })
+    : 'Unknown';
+    
   return {
     ...story,
     qualityScore: calculateQualityScore(story),
     domain: extractDomain(story.url),
-    timeAgo: formatDistanceToNow(new Date(story.created_at_i * 1000), { addSuffix: true }),
+    timeAgo,
   };
+}
+
+/**
+ * Process multiple stories with quality scores and additional metadata
+ */
+export function processStories(stories: HNStory[]): ProcessedStory[] {
+  return stories.map(processStory);
 }
 
 /**
  * Process a comment with time formatting
  */
 export function processComment(comment: HNComment): ProcessedComment {
+  const timeAgo = comment.created_at_i 
+    ? formatDistanceToNow(new Date(comment.created_at_i * 1000), { addSuffix: true })
+    : 'Unknown';
+    
   return {
     ...comment,
-    timeAgo: formatDistanceToNow(new Date(comment.created_at_i * 1000), { addSuffix: true }),
+    timeAgo,
   };
 }
 

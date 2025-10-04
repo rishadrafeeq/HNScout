@@ -57,12 +57,12 @@ function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: nu
           value={pageInput}
           onChange={(e) => setPageInput(e.target.value)}
           placeholder={`1-${totalPages}`}
-          className="w-16 sm:w-20 px-2 py-1 text-xs sm:text-sm border border-white rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black placeholder-gray-500"
+          className="w-16 sm:w-20 px-2 py-1 text-xs sm:text-sm border border-white rounded focus:ring-2 focus:ring-orange-500 focus:border-transparent text-black placeholder-gray-500"
           autoFocus
         />
         <button
           type="submit"
-          className="inline-flex items-center px-2 py-1 text-xs sm:text-sm font-medium text-white bg-blue-600 border border-transparent rounded hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center px-2 py-1 text-xs sm:text-sm font-medium text-white bg-orange-600 border border-transparent rounded hover:bg-orange-700 transition-colors"
         >
           <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
         </button>
@@ -147,7 +147,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
             href={getPageHref(pageNum)}
             className={`inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium border transition-colors ${
               isCurrentPage
-                ? 'text-blue-600 bg-blue-50 border-blue-300'
+                ? 'text-orange-600 bg-orange-50 border-orange-300'
                 : 'text-gray-500 bg-white border-white hover:bg-gray-50 hover:text-gray-700'
             }`}
             aria-label={`Go to page ${pageNum + 1}`}

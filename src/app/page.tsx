@@ -8,20 +8,46 @@ import { ErrorState } from '@/components/ErrorState';
 import { Suspense } from 'react';
 
 interface HomeProps {
-  searchParams: Promise<{ search?: string; sortBy?: string; sortOrder?: string }>;
+  searchParams: Promise<{ 
+    search?: string; 
+    sortBy?: string; 
+    sortOrder?: string;
+    type?: string;
+    author?: string;
+    minPoints?: string;
+    minComments?: string;
+    dateFrom?: string;
+    dateTo?: string;
+  }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { search, sortBy, sortOrder } = await searchParams;
+  const { 
+    search, 
+    sortBy, 
+    sortOrder, 
+    type, 
+    author, 
+    minPoints, 
+    minComments, 
+    dateFrom, 
+    dateTo 
+  } = await searchParams;
   
   return (
     <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
       <div className="text-center mb-6 sm:mb-8">
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
           {search ? `Search Results for "${search}"` : (
-            <>
-              Latest <span className="text-orange-600">Hacker News</span> Stories
-            </>
+            sortBy === 'timeAgo' && sortOrder === 'asc' ? (
+              <>
+                Latest <span className="text-orange-600">Hacker News</span> Stories
+              </>
+            ) : (
+              <>
+                <span className="text-orange-600">Hacker News</span> Stories
+              </>
+            )
           )}
         </h1>
         <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
@@ -33,7 +59,17 @@ export default async function Home({ searchParams }: HomeProps) {
       </div>
 
       <Suspense fallback={<StoryListSkeleton count={20} />}>
-        <LatestStoriesList search={search} sortBy={sortBy} sortOrder={sortOrder} />
+        <LatestStoriesList 
+          search={search} 
+          sortBy={sortBy} 
+          sortOrder={sortOrder}
+          type={type}
+          author={author}
+          minPoints={minPoints}
+          minComments={minComments}
+          dateFrom={dateFrom}
+          dateTo={dateTo}
+        />
       </Suspense>
     </div>
   );
@@ -42,19 +78,51 @@ export default async function Home({ searchParams }: HomeProps) {
 async function LatestStoriesList({ 
   search, 
   sortBy, 
-  sortOrder 
+  sortOrder,
+  type,
+  author,
+  minPoints,
+  minComments,
+  dateFrom,
+  dateTo
 }: { 
   search?: string; 
   sortBy?: string; 
-  sortOrder?: string; 
+  sortOrder?: string;
+  type?: string;
+  author?: string;
+  minPoints?: string;
+  minComments?: string;
+  dateFrom?: string;
+  dateTo?: string;
 }) {
   try {
     let response;
     let totalPages;
     
     if (search) {
-      // Search functionality
-      response = await hnApi.searchStories(search, 0, 20);
+      // Advanced search functionality
+      const searchOptions = {
+        tags: type && type !== 'all' ? [type] : undefined,
+        author: author,
+        minPoints: minPoints ? parseInt(minPoints) : undefined,
+        minComments: minComments ? parseInt(minComments) : undefined,
+        sortByDate: sortBy === 'date',
+        dateRange: {
+          from: dateFrom ? Math.floor(new Date(dateFrom).getTime() / 1000) : undefined,
+          to: dateTo ? Math.floor(new Date(dateTo).getTime() / 1000) : undefined,
+        },
+      };
+
+      // Choose appropriate search method based on content type
+      if (type === 'comments') {
+        response = await hnApi.searchComments(search, 0, 20, searchOptions);
+      } else if (type === 'front_page') {
+        response = await hnApi.searchFrontPageStories(search, 0, 20);
+      } else {
+        response = await hnApi.searchStories(search, 0, 20, searchOptions);
+      }
+      
       totalPages = Math.ceil(response.nbHits / 20);
     } else {
       // Get total count for pagination

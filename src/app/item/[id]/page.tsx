@@ -79,12 +79,19 @@ export default async function ItemPage({ params }: ItemPageProps) {
             </div>
             <div className="flex items-center gap-1">
               <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">{processedStory.timeAgo}</span>
-              <span className="sm:hidden">{processedStory.timeAgo.split(' ')[0]}</span>
+              <span className="hidden sm:inline">{processedStory.timeAgo || 'Unknown'}</span>
+              <span className="sm:hidden">{processedStory.timeAgo ? processedStory.timeAgo.split(' ')[0] : 'Unknown'}</span>
             </div>
           </div>
 
-          <div className="border-t border-white pt-3 sm:pt-4">
+          <div className="border-t border-white pt-3 sm:pt-4 flex flex-col sm:flex-row gap-2 sm:gap-3 justify-end">
+            <Link
+              href={`/author/${encodeURIComponent(story.author)}`}
+              className="inline-flex items-center bg-blue-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-blue-600 transition-colors text-xs sm:text-sm"
+            >
+              <User className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+              About Author
+            </Link>
             <a
               href={`https://news.ycombinator.com/item?id=${id}`}
               target="_blank"
@@ -110,8 +117,8 @@ export default async function ItemPage({ params }: ItemPageProps) {
                     <div className="flex flex-wrap items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500 mb-2">
                       <span className="font-medium">{comment.author}</span>
                       <span className="hidden sm:inline">•</span>
-                      <span className="hidden sm:inline">{comment.timeAgo}</span>
-                      <span className="sm:hidden">{comment.timeAgo.split(' ')[0]}</span>
+                      <span className="hidden sm:inline">{comment.timeAgo || 'Unknown'}</span>
+                      <span className="sm:hidden">{comment.timeAgo ? comment.timeAgo.split(' ')[0] : 'Unknown'}</span>
                       {comment.points > 0 && (
                         <>
                           <span className="hidden sm:inline">•</span>

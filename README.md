@@ -99,6 +99,14 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Average Score**: Average points per submission (when available)
 - **Delay**: Posting delay in minutes (when available)
 
+**Author Content Integration**
+- **Submissions Tab**: View author's submitted stories directly on the platform
+- **Comments Tab**: Browse author's comments with context and threading
+- **Pagination**: Navigate through author's extensive content history
+- **Inline Display**: No external redirects - everything stays within HN Scout
+- **Rich Comment Preview**: HTML-formatted comment text with proper styling
+- **Story Integration**: Submissions use existing story card components
+
 ## 📦 Packages Used
 
 ### Core Dependencies
@@ -200,9 +208,9 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Benefit**: Users can curate their own personalized reading experience
 
 **Author Details System**
-- **Beyond Requirements**: Comprehensive author profiles with detailed statistics and external links
-- **Innovation**: Clickable author names with rich profile pages showing karma, submissions, and bio
-- **Benefit**: Users can explore author backgrounds and contributions to the community
+- **Beyond Requirements**: Comprehensive author profiles with detailed statistics and inline content
+- **Innovation**: Clickable author names with rich profile pages, submissions, and comments tabs
+- **Benefit**: Users can explore author backgrounds and contributions without leaving the platform
 
 **Performance Optimizations**
 - **Beyond Requirements**: API caching with 5-minute revalidation, optimized bundle size
