@@ -7,6 +7,7 @@ A modern, intelligent Hacker News reader built with Next.js that features custom
 ### Core Requirements ✅
 - **Paginated Results List** (`/[page]`) - Browse stories with server-side rendering
 - **Custom Quality Score** - Intelligent ranking algorithm considering points, comments, and recency
+- **Advanced Filtering** - Sort stories by time, points, or comments in ascending/descending order
 - **Detail Page** (`/item/[id]`) - Full story view with comments and metadata
 - **Responsive Design** - Mobile-first, accessible interface
 - **Loading & Error States** - Skeleton loaders and graceful error handling
@@ -41,6 +42,20 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Good** (40-59): Worth reading
 - **Fair** (20-39): Moderate interest  
 - **Poor** (<20): Lower priority content
+
+### Advanced Filtering System
+
+**Sort Options**
+- **By Points**: Sort stories by upvote count (highest/lowest)
+- **By Comments**: Sort stories by comment count (most/least discussion)
+- **By Time**: Sort stories by recency (newest/oldest)
+
+**Implementation**
+- **Professional UI**: Clean dropdown interface in the navigation bar
+- **URL Parameters**: Sort preferences persist in browser history
+- **Real-time Updates**: Instant sorting without page refresh
+- **Mobile Responsive**: Compact design that works on all screen sizes
+- **Accessibility**: Proper ARIA labels and keyboard navigation
 
 ## 📦 Packages Used
 

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Zap } from 'lucide-react';
 import { SearchBar } from './SearchBar';
+import { FilterDropdown } from './FilterDropdown';
 
 export function Header() {
   return (
@@ -25,7 +26,8 @@ export function Header() {
             </nav>
           </div>
           
-          <div className="flex items-center">
+          <div className="flex items-center space-x-2 sm:space-x-3">
+            <FilterDropdown />
             <SearchBar />
           </div>
         </div>

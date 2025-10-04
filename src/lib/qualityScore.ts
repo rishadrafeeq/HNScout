@@ -1,6 +1,9 @@
 import { HNStory, HNComment, ProcessedStory, ProcessedComment } from '@/types/hn';
 import { formatDistanceToNow } from 'date-fns';
 
+export type SortField = 'timeAgo' | 'points' | 'comments';
+export type SortOrder = 'asc' | 'desc';
+
 /**
  * Calculate quality score based on points, comments, and recency
  * Formula: (points * 0.4) + (comments * 0.3) + (recency * 0.3)
@@ -72,6 +75,37 @@ export function sortStoriesByQuality(stories: HNStory[]): ProcessedStory[] {
   return stories
     .map(processStory)
     .sort((a, b) => b.qualityScore - a.qualityScore);
+}
+
+/**
+ * Sort processed stories by specified field and order
+ */
+export function sortStoriesByField(
+  stories: ProcessedStory[], 
+  sortBy: SortField, 
+  sortOrder: SortOrder
+): ProcessedStory[] {
+  return [...stories].sort((a, b) => {
+    let comparison = 0;
+    
+    switch (sortBy) {
+      case 'points':
+        comparison = a.points - b.points;
+        break;
+      case 'comments':
+        comparison = a.num_comments - b.num_comments;
+        break;
+      case 'timeAgo':
+        // For timeAgo, we sort by creation time (newer first by default)
+        comparison = b.created_at_i - a.created_at_i;
+        break;
+      default:
+        comparison = 0;
+    }
+    
+    // Apply sort order
+    return sortOrder === 'desc' ? -comparison : comparison;
+  });
 }
 
 /**

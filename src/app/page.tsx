@@ -1,5 +1,5 @@
 import { hnApi } from '@/lib/api';
-import { sortStoriesByQuality } from '@/lib/qualityScore';
+import { sortStoriesByQuality, sortStoriesByField, SortField, SortOrder } from '@/lib/qualityScore';
 import { generatePaginationData } from '@/lib/pagination';
 import { StoryCard } from '@/components/StoryCard';
 import { Pagination } from '@/components/Pagination';
@@ -8,11 +8,11 @@ import { ErrorState } from '@/components/ErrorState';
 import { Suspense } from 'react';
 
 interface HomeProps {
-  searchParams: Promise<{ search?: string }>;
+  searchParams: Promise<{ search?: string; sortBy?: string; sortOrder?: string }>;
 }
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { search } = await searchParams;
+  const { search, sortBy, sortOrder } = await searchParams;
   
   return (
     <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
@@ -33,13 +33,21 @@ export default async function Home({ searchParams }: HomeProps) {
       </div>
 
       <Suspense fallback={<StoryListSkeleton count={20} />}>
-        <LatestStoriesList search={search} />
+        <LatestStoriesList search={search} sortBy={sortBy} sortOrder={sortOrder} />
       </Suspense>
     </div>
   );
 }
 
-async function LatestStoriesList({ search }: { search?: string }) {
+async function LatestStoriesList({ 
+  search, 
+  sortBy, 
+  sortOrder 
+}: { 
+  search?: string; 
+  sortBy?: string; 
+  sortOrder?: string; 
+}) {
   try {
     let response;
     let totalPages;
@@ -57,7 +65,20 @@ async function LatestStoriesList({ search }: { search?: string }) {
       response = await hnApi.getLatestStories(0, 20);
     }
     
-    const processedStories = sortStoriesByQuality(response.hits);
+    // Process stories and apply sorting
+    let processedStories = sortStoriesByQuality(response.hits);
+    
+    // Apply custom sorting if specified
+    if (sortBy && sortOrder) {
+      const validSortBy = (['points', 'comments', 'timeAgo'] as SortField[]).includes(sortBy as SortField) 
+        ? sortBy as SortField 
+        : 'points';
+      const validSortOrder = (['asc', 'desc'] as SortOrder[]).includes(sortOrder as SortOrder) 
+        ? sortOrder as SortOrder 
+        : 'desc';
+      
+      processedStories = sortStoriesByField(processedStories, validSortBy, validSortOrder);
+    }
     
     // Generate pagination data
     const pagination = generatePaginationData(0, totalPages);
