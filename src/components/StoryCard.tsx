@@ -1,9 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ExternalLink, MessageCircle, Clock, User, ArrowUp } from 'lucide-react';
+import { ExternalLink, MessageCircle, Clock, User, ArrowUp, Bookmark, BookmarkCheck } from 'lucide-react';
 import { ProcessedStory } from '@/types/hn';
 import { QualityScoreBadge } from '@/components/ui/QualityScoreBadge';
+import { saveToReadingList, removeFromReadingList, isStorySaved } from '@/lib/readingList';
 
 interface StoryCardProps {
   story: ProcessedStory;
@@ -11,15 +13,39 @@ interface StoryCardProps {
 }
 
 export function StoryCard({ story, index }: StoryCardProps) {
+  const [isSaved, setIsSaved] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+    setIsSaved(isStorySaved(story.objectID));
+  }, [story.objectID]);
+
   const handleCardClick = (e: React.MouseEvent) => {
-    // Prevent navigation if clicking on external links or quality badge
+    // Prevent navigation if clicking on external links, quality badge, or save button
     const target = e.target as HTMLElement;
-    if (target.closest('a') || target.closest('[data-no-navigate]')) {
+    if (target.closest('a') || target.closest('[data-no-navigate]') || target.closest('[data-save-button]')) {
       return;
     }
-    
+
     // Navigate to detail page
     window.location.href = `/item/${story.objectID}`;
+  };
+
+  const handleSaveToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    
+    if (isSaved) {
+      const success = removeFromReadingList(story.objectID);
+      if (success) {
+        setIsSaved(false);
+      }
+    } else {
+      const success = saveToReadingList(story);
+      if (success) {
+        setIsSaved(true);
+      }
+    }
   };
 
   return (
@@ -91,8 +117,29 @@ export function StoryCard({ story, index }: StoryCardProps) {
           </div>
         </div>
         
-        <div className="flex-shrink-0 self-start sm:self-auto" data-no-navigate>
+        <div className="flex-shrink-0 self-start sm:self-auto flex flex-col gap-2" data-no-navigate>
           <QualityScoreBadge score={story.qualityScore} />
+          
+          {/* Save to Reading List Button */}
+          {isMounted && (
+            <button
+              onClick={handleSaveToggle}
+              data-save-button
+              className={`inline-flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-200 ${
+                isSaved
+                  ? 'bg-orange-500 text-white hover:bg-orange-600'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-800'
+              }`}
+              title={isSaved ? 'Remove from reading list' : 'Save to reading list'}
+              aria-label={isSaved ? 'Remove from reading list' : 'Save to reading list'}
+            >
+              {isSaved ? (
+                <BookmarkCheck className="w-4 h-4 sm:w-5 sm:h-5" />
+              ) : (
+                <Bookmark className="w-4 h-4 sm:w-5 sm:h-5" />
+              )}
+            </button>
+          )}
         </div>
       </div>
     </article>

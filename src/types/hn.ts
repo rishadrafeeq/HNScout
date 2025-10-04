@@ -62,3 +62,12 @@ export interface ProcessedStory extends HNStory {
 export interface ProcessedComment extends HNComment {
   timeAgo: string;
 }
+
+export interface SavedStory extends ProcessedStory {
+  savedAt: number;
+}
+
+export interface ReadingList {
+  stories: SavedStory[];
+  lastUpdated: number;
+}

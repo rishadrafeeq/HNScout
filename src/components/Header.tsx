@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Zap } from 'lucide-react';
+import { Zap, Bookmark } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 import { FilterDropdown } from './FilterDropdown';
 
@@ -45,6 +45,13 @@ function HeaderContent() {
                   Latest Stories
                 </span>
               )}
+              <Link
+                href="/reading-list"
+                className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors"
+              >
+                <Bookmark className="w-4 h-4" />
+                <span>Reading List</span>
+              </Link>
               <span className="text-gray-400 text-sm">
                 Browse pages below ↓
               </span>

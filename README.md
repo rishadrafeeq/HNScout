@@ -9,6 +9,7 @@ A modern, intelligent Hacker News reader built with Next.js that features custom
 - **Custom Quality Score** - Intelligent ranking algorithm considering points, comments, and recency
 - **Advanced Filtering** - Sort stories by time, points, or comments in ascending/descending order
 - **Detail Page** (`/item/[id]`) - Full story view with comments and metadata
+- **Reading List** - Save posts to localStorage for later reading
 - **Responsive Design** - Mobile-first, accessible interface
 - **Loading & Error States** - Skeleton loaders and graceful error handling
 
@@ -56,6 +57,22 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Real-time Updates**: Instant sorting without page refresh
 - **Mobile Responsive**: Compact design that works on all screen sizes
 - **Accessibility**: Proper ARIA labels and keyboard navigation
+
+### Reading List System
+
+**Features**
+- **Save Stories**: Click the bookmark icon on any story to save it for later
+- **Persistent Storage**: Stories saved using localStorage with automatic browser persistence
+- **Smart Management**: Duplicate prevention, automatic updates, and 100-story limit
+- **Dedicated Page**: View all saved stories at `/reading-list` with timestamps
+- **Easy Management**: Remove individual stories or clear entire reading list
+
+**Implementation**
+- **localStorage Integration**: Client-side storage with error handling and fallbacks
+- **Real-time Updates**: Instant save/remove feedback with visual state changes
+- **Mobile Optimized**: Touch-friendly bookmark buttons with proper sizing
+- **Data Integrity**: Automatic cleanup and validation of stored data
+- **Performance**: Efficient storage with minimal impact on page load times
 
 ## 📦 Packages Used
 
@@ -151,6 +168,11 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Beyond Requirements**: Loading skeletons, hover states, smooth transitions
 - **Innovation**: Consistent design system with thoughtful spacing and typography
 - **Benefit**: Professional, polished appearance that rivals commercial apps
+
+**Reading List System**
+- **Beyond Requirements**: Complete localStorage-based reading list with save/remove functionality
+- **Innovation**: Smart duplicate prevention, automatic updates, and dedicated management page
+- **Benefit**: Users can curate their own personalized reading experience
 
 **Performance Optimizations**
 - **Beyond Requirements**: API caching with 5-minute revalidation, optimized bundle size
