@@ -1,11 +1,76 @@
+'use client';
+
+import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowRight } from 'lucide-react';
 import { PaginationData } from '@/lib/pagination';
-import { PageGoto } from './PageGoto';
 
 interface PaginationProps {
   pagination: PaginationData;
   basePath: string;
+}
+
+// Inline Page Goto Component
+function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: number; totalPages: number; basePath: string }) {
+  const [pageInput, setPageInput] = useState('');
+  const [isActive, setIsActive] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const pageNum = parseInt(pageInput, 10);
+    
+    if (pageNum >= 1 && pageNum <= totalPages && pageNum !== currentPage + 1) {
+      const targetPage = pageNum === 1 ? basePath : `${basePath}/${pageNum}`;
+      window.location.href = targetPage;
+    }
+    
+    setPageInput('');
+    setIsActive(false);
+  };
+
+  if (isActive) {
+    return (
+      <form onSubmit={handleSubmit} className="inline-flex items-center space-x-1">
+        <input
+          type="number"
+          min="1"
+          max={totalPages}
+          value={pageInput}
+          onChange={(e) => setPageInput(e.target.value)}
+          placeholder={`1-${totalPages}`}
+          className="w-16 sm:w-20 px-2 py-1 text-xs sm:text-sm border border-white rounded focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          autoFocus
+        />
+        <button
+          type="submit"
+          className="inline-flex items-center px-2 py-1 text-xs sm:text-sm font-medium text-white bg-blue-600 border border-transparent rounded hover:bg-blue-700 transition-colors"
+        >
+          <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsActive(false);
+            setPageInput('');
+          }}
+          className="px-2 py-1 text-xs sm:text-sm font-medium text-gray-700 bg-gray-100 border border-white rounded hover:bg-gray-200 transition-colors"
+        >
+          ✕
+        </button>
+      </form>
+    );
+  }
+
+  return (
+    <button
+      onClick={() => setIsActive(true)}
+      className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-500 bg-white border border-white hover:bg-gray-50 hover:text-gray-700 transition-colors rounded-md"
+      title="Go to page"
+    >
+      <span className="hidden sm:inline">Go to</span>
+      <span className="sm:hidden">Go</span>
+    </button>
+  );
 }
 
 export function Pagination({ pagination, basePath }: PaginationProps) {
@@ -99,7 +164,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
 
       {/* Go to page */}
       <div className="ml-2 sm:ml-4">
-        <PageGoto currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
+        <InlinePageGoto currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
       </div>
     </nav>
   );
