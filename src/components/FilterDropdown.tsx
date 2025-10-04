@@ -86,13 +86,13 @@ function FilterDropdownContent() {
           />
           
           {/* Dropdown */}
-          <div className="absolute right-0 mt-2 w-72 sm:w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[200] max-w-[calc(100vw-1rem)] sm:max-w-none">
+          <div className="absolute right-0 mt-2 w-80 sm:w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[200] max-w-[calc(100vw-1rem)] sm:max-w-none">
             <div className="p-4 sm:p-4">
-              <h3 className="text-sm sm:text-sm font-semibold text-gray-900 mb-3">Sort Stories</h3>
+              <h3 className="text-base sm:text-sm font-semibold text-gray-900 mb-4 sm:mb-3">Sort Stories</h3>
               
               {/* Sort by field */}
-              <div className="mb-4">
-                <label className="block text-sm sm:text-xs font-medium text-gray-700 mb-2">
+              <div className="mb-5 sm:mb-4">
+                <label className="block text-base sm:text-xs font-medium text-gray-700 mb-3 sm:mb-2">
                   Sort by
                 </label>
                 <div className="space-y-2">
@@ -100,10 +100,10 @@ function FilterDropdownContent() {
                     <button
                       key={field}
                       onClick={() => handleFilterChange(field, currentSortOrder)}
-                      className={`w-full text-left px-4 py-3 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
+                      className={`w-full text-left px-4 py-4 sm:py-2 text-base sm:text-sm rounded-md transition-colors ${
                         currentSortBy === field
                           ? 'bg-orange-100 text-orange-700 border border-orange-200'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          : 'text-gray-700 hover:bg-gray-100 active:bg-gray-200'
                       }`}
                     >
                       {getSortLabel(field)}
@@ -114,7 +114,7 @@ function FilterDropdownContent() {
 
               {/* Sort order */}
               <div>
-                <label className="block text-sm sm:text-xs font-medium text-gray-700 mb-2">
+                <label className="block text-base sm:text-xs font-medium text-gray-700 mb-3 sm:mb-2">
                   Order
                 </label>
                 <div className="space-y-2">
@@ -122,10 +122,10 @@ function FilterDropdownContent() {
                     <button
                       key={order}
                       onClick={() => handleFilterChange(currentSortBy, order)}
-                      className={`w-full text-left px-4 py-3 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
+                      className={`w-full text-left px-4 py-4 sm:py-2 text-base sm:text-sm rounded-md transition-colors ${
                         currentSortOrder === order
                           ? 'bg-orange-100 text-orange-700 border border-orange-200'
-                          : 'text-gray-700 hover:bg-gray-100'
+                          : 'text-gray-700 hover:bg-gray-100 active:bg-gray-200'
                       }`}
                     >
                       {getOrderLabel(order)}
@@ -135,8 +135,8 @@ function FilterDropdownContent() {
               </div>
 
               {/* Current selection summary */}
-              <div className="mt-4 pt-3 border-t border-gray-200">
-                <p className="text-xs sm:text-xs text-gray-500">
+              <div className="mt-5 sm:mt-4 pt-4 sm:pt-3 border-t border-gray-200">
+                <p className="text-sm sm:text-xs text-gray-500 leading-relaxed">
                   Currently sorting by <span className="font-medium text-gray-700">{getSortLabel(currentSortBy)}</span> in <span className="font-medium text-gray-700">{getOrderLabel(currentSortOrder)}</span> order
                 </p>
               </div>
