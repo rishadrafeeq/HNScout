@@ -18,7 +18,11 @@ export default async function Home({ searchParams }: HomeProps) {
     <div className="max-w-6xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-8 bg-white">
       <div className="text-center mb-6 sm:mb-8">
         <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-4 px-2">
-          {search ? `Search Results for "${search}"` : 'Latest Hacker News Stories'}
+          {search ? `Search Results for "${search}"` : (
+            <>
+              Latest <span className="text-orange-600">Hacker News</span> Stories
+            </>
+          )}
         </h1>
         <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-2xl mx-auto px-4">
           {search 
