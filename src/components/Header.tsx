@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Zap, Bookmark } from 'lucide-react';
+import { Zap, Bookmark, Clock } from 'lucide-react';
 import { SearchBar } from './SearchBar';
 import { FilterDropdown } from './FilterDropdown';
 
@@ -17,10 +17,8 @@ function HeaderContent() {
   }, []);
 
   const handleLatestStoriesClick = () => {
-    // Clear any existing URL parameters and go to home
-    if (searchParams.toString()) {
-      router.push('/');
-    }
+    // Navigate to home with latest stories sort (time ascending = newest first)
+    router.push('/?sortBy=timeAgo&sortOrder=asc');
   };
 
   return (
@@ -36,13 +34,15 @@ function HeaderContent() {
               {isMounted ? (
                 <button
                   onClick={handleLatestStoriesClick}
-                  className="text-gray-600 hover:text-orange-600 transition-colors"
+                  className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors"
                 >
-                  Latest Stories
+                  <Clock className="w-4 h-4" />
+                  <span>Latest Stories</span>
                 </button>
               ) : (
-                <span className="text-gray-600">
-                  Latest Stories
+                <span className="flex items-center space-x-1 text-gray-600">
+                  <Clock className="w-4 h-4" />
+                  <span>Latest Stories</span>
                 </span>
               )}
               <Link
