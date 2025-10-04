@@ -49,28 +49,28 @@ export function StoryCard({ story, index }: StoryCardProps) {
             </div>
           )}
           
-          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mt-2">
             <div className="flex items-center gap-1">
-              <User className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span>{story.author}</span>
+              <User className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="truncate">{story.author}</span>
             </div>
             <div className="flex items-center gap-1">
-              <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4" />
+              <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
               <span>{story.points} points</span>
             </div>
             <div className="flex items-center gap-1">
-              <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4" />
+              <MessageCircle className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
               <Link 
                 href={`/item/${story.objectID}`}
-                className="hover:text-orange-600 transition-colors cursor-pointer"
+                className="hover:text-orange-600 transition-colors cursor-pointer truncate"
               >
                 {story.num_comments} comments
               </Link>
             </div>
             <div className="flex items-center gap-1">
-              <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">{story.timeAgo}</span>
-              <span className="sm:hidden">{story.timeAgo.split(' ')[0]}</span>
+              <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+              <span className="hidden sm:inline truncate">{story.timeAgo}</span>
+              <span className="sm:hidden truncate">{story.timeAgo.split(' ')[0]}</span>
             </div>
           </div>
         </div>
