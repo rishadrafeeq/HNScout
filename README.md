@@ -9,6 +9,7 @@ A modern, intelligent Hacker News reader built with Next.js that features custom
 - **Custom Quality Score** - Intelligent ranking algorithm considering points, comments, and recency
 - **Advanced Filtering** - Sort stories by time, points, or comments in ascending/descending order
 - **Detail Page** (`/item/[id]`) - Full story view with comments and metadata
+- **Author Details** (`/author/[username]`) - Comprehensive author profiles with stats and links
 - **Reading List** - Save posts to localStorage for later reading
 - **Responsive Design** - Mobile-first, accessible interface
 - **Loading & Error States** - Skeleton loaders and graceful error handling
@@ -73,6 +74,30 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Mobile Optimized**: Touch-friendly bookmark buttons with proper sizing
 - **Data Integrity**: Automatic cleanup and validation of stored data
 - **Performance**: Efficient storage with minimal impact on page load times
+
+### Author Details System
+
+**Features**
+- **Clickable Author Names**: Author names in story cards link to detailed profiles
+- **Comprehensive Profiles**: View author karma, submission count, comment count, and join date
+- **Rich Information**: Author bio/about text with HTML formatting support
+- **External Links**: Direct links to Hacker News profile, submissions, and comments
+- **Real-time Data**: Live author statistics from Hacker News API
+
+**Implementation**
+- **API Integration**: Uses `https://hn.algolia.com/api/v1/users/:username` endpoint
+- **Dynamic Routes**: `/author/[username]` for individual author pages
+- **Error Handling**: Graceful 404 handling for non-existent authors
+- **Caching**: 5-minute cache for author data to improve performance
+- **Responsive Design**: Mobile-optimized layout with stats cards
+
+**Author Statistics Displayed**
+- **Karma Points**: Total community reputation score
+- **Submissions**: Number of stories/links submitted
+- **Comments**: Total comment count across discussions
+- **Member Since**: Account creation date with relative time display
+- **Average Score**: Average points per submission (when available)
+- **Delay**: Posting delay in minutes (when available)
 
 ## 📦 Packages Used
 
@@ -173,6 +198,11 @@ Quality Score = (Points × 0.4) + (Comments × 0.3) + (Recency × 0.3)
 - **Beyond Requirements**: Complete localStorage-based reading list with save/remove functionality
 - **Innovation**: Smart duplicate prevention, automatic updates, and dedicated management page
 - **Benefit**: Users can curate their own personalized reading experience
+
+**Author Details System**
+- **Beyond Requirements**: Comprehensive author profiles with detailed statistics and external links
+- **Innovation**: Clickable author names with rich profile pages showing karma, submissions, and bio
+- **Benefit**: Users can explore author backgrounds and contributions to the community
 
 **Performance Optimizations**
 - **Beyond Requirements**: API caching with 5-minute revalidation, optimized bundle size

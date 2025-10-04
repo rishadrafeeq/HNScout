@@ -71,3 +71,28 @@ export interface ReadingList {
   stories: SavedStory[];
   lastUpdated: number;
 }
+
+export interface HNAuthor {
+  username: string;
+  about?: string;
+  created_at: string;
+  created_at_i: number;
+  karma: number;
+  submission_count?: number;
+  comment_count?: number;
+  avg?: number;
+  delay?: number;
+}
+
+export interface HNAuthorResponse {
+  hits: HNAuthor[];
+  nbHits: number;
+  page: number;
+  nbPages: number;
+  hitsPerPage: number;
+  exhaustiveNbHits: boolean;
+  exhaustiveTypo: boolean;
+  query: string;
+  params: string;
+  processingTimeMS: number;
+}

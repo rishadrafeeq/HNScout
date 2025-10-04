@@ -1,4 +1,4 @@
-import { HNStory, HNSearchResponse, HNItemResponse, HNComment } from '@/types/hn';
+import { HNStory, HNSearchResponse, HNItemResponse, HNComment, HNAuthor, HNAuthorResponse } from '@/types/hn';
 
 const BASE_URL = 'https://hn.algolia.com/api/v1';
 
@@ -93,6 +93,32 @@ export class HNAlgoliaAPI {
     hitsPerPage: number = 20
   ): Promise<HNSearchResponse> {
     return this.searchStories('', page, hitsPerPage);
+  }
+
+  /**
+   * Get author details by username
+   */
+  async getAuthorDetails(username: string): Promise<HNAuthor | null> {
+    try {
+      const url = `${BASE_URL}/users/${encodeURIComponent(username)}`;
+      
+      const response = await fetch(url, {
+        next: { revalidate: 300 }, // Cache for 5 minutes
+      });
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          return null; // Author not found
+        }
+        throw new Error(`Failed to fetch author details: ${response.statusText}`);
+      }
+
+      const author: HNAuthor = await response.json();
+      return author;
+    } catch (error) {
+      console.error('Error fetching author details:', error);
+      throw error;
+    }
   }
 }
 

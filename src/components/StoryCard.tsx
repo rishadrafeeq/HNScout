@@ -94,7 +94,13 @@ export function StoryCard({ story, index }: StoryCardProps) {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500 mt-2">
             <div className="flex items-center gap-1">
               <User className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-              <span className="truncate">{story.author}</span>
+              <Link
+                href={`/author/${encodeURIComponent(story.author)}`}
+                className="truncate hover:text-orange-600 transition-colors cursor-pointer"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {story.author}
+              </Link>
             </div>
             <div className="flex items-center gap-1">
               <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
