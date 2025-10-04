@@ -29,7 +29,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
     const processedComments = comments.map(processComment);
 
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
         <div className="mb-6">
           <Link 
             href="/" 
@@ -142,7 +142,7 @@ export default async function ItemPage({ params }: ItemPageProps) {
     );
   } catch {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
         <ErrorState
           title="Failed to load story"
           message="We encountered an error while fetching the story. Please try again later."

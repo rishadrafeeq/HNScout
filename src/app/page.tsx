@@ -7,34 +7,52 @@ import { StoryListSkeleton } from '@/components/ui/Skeleton';
 import { ErrorState } from '@/components/ErrorState';
 import { Suspense } from 'react';
 
-export default async function Home() {
+interface HomeProps {
+  searchParams: Promise<{ search?: string }>;
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const { search } = await searchParams;
+  
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 bg-white">
       <div className="text-center mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">
-          Latest Hacker News Stories
+          {search ? `Search Results for "${search}"` : 'Latest Hacker News Stories'}
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Discover the most engaging stories from Hacker News, ranked by our intelligent quality score 
-          that considers points, comments, and recency.
+          {search 
+            ? `Searching through Hacker News stories for "${search}"`
+            : 'Discover the most engaging stories from Hacker News, ranked by our intelligent quality score that considers points, comments, and recency.'
+          }
         </p>
       </div>
 
       <Suspense fallback={<StoryListSkeleton count={20} />}>
-        <LatestStoriesList />
+        <LatestStoriesList search={search} />
       </Suspense>
     </div>
   );
 }
 
-async function LatestStoriesList() {
+async function LatestStoriesList({ search }: { search?: string }) {
   try {
-    // Get total count for pagination
-    const totalResponse = await hnApi.getLatestStories(0, 100);
-    const totalPages = Math.ceil(totalResponse.nbHits / 20);
+    let response;
+    let totalPages;
     
-    // Get first page stories
-    const response = await hnApi.getLatestStories(0, 20);
+    if (search) {
+      // Search functionality
+      response = await hnApi.searchStories(search, 0, 20);
+      totalPages = Math.ceil(response.nbHits / 20);
+    } else {
+      // Get total count for pagination
+      const totalResponse = await hnApi.getLatestStories(0, 100);
+      totalPages = Math.ceil(totalResponse.nbHits / 20);
+      
+      // Get first page stories
+      response = await hnApi.getLatestStories(0, 20);
+    }
+    
     const processedStories = sortStoriesByQuality(response.hits);
     
     // Generate pagination data
@@ -48,7 +66,7 @@ async function LatestStoriesList() {
           ))}
         </div>
         
-        <Pagination pagination={pagination} basePath="" />
+        {!search && <Pagination pagination={pagination} basePath="" />}
       </>
     );
   } catch {

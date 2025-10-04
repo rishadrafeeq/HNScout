@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { Search, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
+import { SearchBar } from './SearchBar';
 
 export function Header() {
   return (
@@ -25,10 +26,7 @@ export function Header() {
           </div>
           
           <div className="flex items-center space-x-4">
-            <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
-              <Search className="w-4 h-4" />
-              <span>Powered by Hacker News API</span>
-            </div>
+            <SearchBar />
           </div>
         </div>
       </div>

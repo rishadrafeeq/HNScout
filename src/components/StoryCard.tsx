@@ -10,7 +10,7 @@ interface StoryCardProps {
 
 export function StoryCard({ story, index }: StoryCardProps) {
   return (
-    <article className="bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors shadow-sm">
+    <article className="bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 hover:shadow-md transition-all duration-200 cursor-pointer shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-start gap-2 mb-2">
@@ -25,14 +25,14 @@ export function StoryCard({ story, index }: StoryCardProps) {
                   href={story.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-blue-600 transition-colors cursor-pointer"
                 >
                   {story.title}
                 </Link>
               ) : (
                 <Link 
                   href={`/item/${story.objectID}`}
-                  className="hover:text-blue-600 transition-colors"
+                  className="hover:text-blue-600 transition-colors cursor-pointer"
                 >
                   {story.title}
                 </Link>
@@ -62,7 +62,7 @@ export function StoryCard({ story, index }: StoryCardProps) {
               <MessageCircle className="w-4 h-4" />
               <Link 
                 href={`/item/${story.objectID}`}
-                className="hover:text-blue-600 transition-colors"
+                className="hover:text-blue-600 transition-colors cursor-pointer"
               >
                 {story.num_comments} comments
               </Link>
