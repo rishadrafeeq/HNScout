@@ -64,7 +64,7 @@ function FilterDropdownContent() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative z-[300]">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="inline-flex items-center px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-white rounded-lg hover:bg-gray-50 hover:text-gray-900 transition-colors focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 min-w-0"
@@ -81,13 +81,13 @@ function FilterDropdownContent() {
         <>
           {/* Backdrop */}
           <div 
-            className="fixed inset-0 z-10" 
+            className="fixed inset-0 z-[100]" 
             onClick={() => setIsOpen(false)}
           />
           
           {/* Dropdown */}
-          <div className="absolute right-0 sm:right-0 mt-2 w-80 sm:w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-20 max-w-[calc(100vw-1rem)] sm:max-w-none">
-            <div className="p-3 sm:p-4">
+          <div className="absolute right-0 mt-2 w-72 sm:w-64 bg-white border border-gray-200 rounded-lg shadow-xl z-[200] max-w-[calc(100vw-1rem)] sm:max-w-none">
+            <div className="p-4 sm:p-4">
               <h3 className="text-sm sm:text-sm font-semibold text-gray-900 mb-3">Sort Stories</h3>
               
               {/* Sort by field */}
@@ -100,7 +100,7 @@ function FilterDropdownContent() {
                     <button
                       key={field}
                       onClick={() => handleFilterChange(field, currentSortOrder)}
-                      className={`w-full text-left px-3 py-2.5 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
+                      className={`w-full text-left px-4 py-3 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
                         currentSortBy === field
                           ? 'bg-orange-100 text-orange-700 border border-orange-200'
                           : 'text-gray-700 hover:bg-gray-100'
@@ -122,7 +122,7 @@ function FilterDropdownContent() {
                     <button
                       key={order}
                       onClick={() => handleFilterChange(currentSortBy, order)}
-                      className={`w-full text-left px-3 py-2.5 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
+                      className={`w-full text-left px-4 py-3 sm:py-2 text-sm sm:text-sm rounded-md transition-colors ${
                         currentSortOrder === order
                           ? 'bg-orange-100 text-orange-700 border border-orange-200'
                           : 'text-gray-700 hover:bg-gray-100'
