@@ -1,6 +1,6 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Zap } from 'lucide-react';
@@ -8,8 +8,13 @@ import { SearchBar } from './SearchBar';
 import { FilterDropdown } from './FilterDropdown';
 
 function HeaderContent() {
+  const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
   const searchParams = useSearchParams();
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleLatestStoriesClick = () => {
     // Clear any existing URL parameters and go to home
@@ -28,12 +33,18 @@ function HeaderContent() {
               <h1 className="text-lg sm:text-xl font-bold text-gray-900">HN Scout</h1>
             </Link>
             <nav className="hidden lg:flex items-center space-x-6">
-              <button
-                onClick={handleLatestStoriesClick}
-                className="text-gray-600 hover:text-orange-600 transition-colors"
-              >
-                Latest Stories
-              </button>
+              {isMounted ? (
+                <button
+                  onClick={handleLatestStoriesClick}
+                  className="text-gray-600 hover:text-orange-600 transition-colors"
+                >
+                  Latest Stories
+                </button>
+              ) : (
+                <span className="text-gray-600">
+                  Latest Stories
+                </span>
+              )}
               <span className="text-gray-400 text-sm">
                 Browse pages below ↓
               </span>
