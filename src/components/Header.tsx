@@ -55,9 +55,41 @@ function HeaderContent() {
             </nav>
           </div>
           
-          <div className="flex items-center space-x-2 sm:space-x-3">
-            <FilterDropdown />
+          <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
+            <div className="hidden sm:block">
+              <FilterDropdown />
+            </div>
             <AdvancedSearchBar />
+          </div>
+        </div>
+        
+        {/* Mobile Navigation */}
+        <div className="lg:hidden border-t border-gray-100 py-2">
+          <div className="flex items-center justify-center space-x-4">
+            {isMounted ? (
+              <button
+                onClick={handleLatestStoriesClick}
+                className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors text-sm"
+              >
+                <Clock className="w-4 h-4" />
+                <span>Latest</span>
+              </button>
+            ) : (
+              <span className="flex items-center space-x-1 text-gray-600 text-sm">
+                <Clock className="w-4 h-4" />
+                <span>Latest</span>
+              </span>
+            )}
+            <Link
+              href="/reading-list"
+              className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors text-sm"
+            >
+              <Bookmark className="w-4 h-4" />
+              <span>Reading List</span>
+            </Link>
+            <div className="sm:hidden">
+              <FilterDropdown />
+            </div>
           </div>
         </div>
       </div>
@@ -80,9 +112,16 @@ export function Header() {
                 <span className="text-gray-600">Latest Stories</span>
               </nav>
             </div>
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <div className="w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
+            <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
+              <div className="hidden sm:block w-16 h-8 bg-gray-200 rounded animate-pulse"></div>
               <div className="w-32 h-8 bg-gray-200 rounded animate-pulse"></div>
+            </div>
+          </div>
+          <div className="lg:hidden border-t border-gray-100 py-2">
+            <div className="flex items-center justify-center space-x-4">
+              <span className="text-gray-600 text-sm">Latest</span>
+              <span className="text-gray-600 text-sm">Reading List</span>
+              <div className="sm:hidden w-16 h-6 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>
         </div>

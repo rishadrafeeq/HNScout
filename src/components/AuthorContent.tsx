@@ -32,13 +32,14 @@ function CommentCard({ comment }: CommentCardProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
+    <div className="bg-white border border-gray-200 rounded-lg p-3 sm:p-4 shadow-sm">
       <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-2 text-sm text-gray-500">
-          <ArrowUp className="w-4 h-4" />
+        <div className="flex items-center gap-1 sm:gap-2 text-xs sm:text-sm text-gray-500">
+          <ArrowUp className="w-3 h-3 sm:w-4 sm:h-4" />
           <span>{comment.points} points</span>
-          <Clock className="w-4 h-4 ml-2" />
-          <span>{timeAgo}</span>
+          <Clock className="w-3 h-3 sm:w-4 sm:h-4 ml-1 sm:ml-2" />
+          <span className="hidden sm:inline">{timeAgo}</span>
+          <span className="sm:hidden">{timeAgo.split(' ')[0]}</span>
         </div>
         <a
           href={`https://news.ycombinator.com/item?id=${comment.parent_id}`}
@@ -46,13 +47,13 @@ function CommentCard({ comment }: CommentCardProps) {
           rel="noopener noreferrer"
           className="text-orange-600 hover:text-orange-700 transition-colors"
         >
-          <ExternalLink className="w-4 h-4" />
+          <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
         </a>
       </div>
       
       <div className="prose prose-sm max-w-none">
         <div 
-          className="text-gray-700 leading-relaxed"
+          className="text-gray-700 leading-relaxed text-xs sm:text-sm"
           dangerouslySetInnerHTML={{ 
             __html: getTextPreview(comment.comment_text || '', 300) 
           }}
@@ -106,12 +107,12 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 mb-4">
           {type === 'submissions' ? (
-            <FileText className="w-5 h-5 text-blue-500" />
+            <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
           ) : (
-            <MessageSquare className="w-5 h-5 text-green-500" />
+            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
           )}
-          <h3 className="text-lg font-semibold text-gray-900">
-            {type === 'submissions' ? 'Submissions' : 'Comments'} ({totalHits})
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+            {type === 'submissions' ? 'Submissions' : 'Comments'} ({totalHits.toLocaleString()})
           </h3>
         </div>
         <StoryListSkeleton count={10} />
@@ -124,11 +125,11 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
       <div className="space-y-4">
         <div className="flex items-center gap-2 mb-4">
           {type === 'submissions' ? (
-            <FileText className="w-5 h-5 text-blue-500" />
+            <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
           ) : (
-            <MessageSquare className="w-5 h-5 text-green-500" />
+            <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
           )}
-          <h3 className="text-lg font-semibold text-gray-900">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900">
             {type === 'submissions' ? 'Submissions' : 'Comments'}
           </h3>
         </div>
@@ -144,11 +145,11 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 mb-4">
         {type === 'submissions' ? (
-          <FileText className="w-5 h-5 text-blue-500" />
+          <FileText className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
         ) : (
-          <MessageSquare className="w-5 h-5 text-green-500" />
+          <MessageSquare className="w-4 h-4 sm:w-5 sm:h-5 text-green-500" />
         )}
-        <h3 className="text-lg font-semibold text-gray-900">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
           {type === 'submissions' ? 'Submissions' : 'Comments'} ({totalHits.toLocaleString()})
         </h3>
       </div>
@@ -157,15 +158,15 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
         <div className="text-center py-8">
           <div className="text-gray-400 mb-2">
             {type === 'submissions' ? (
-              <FileText className="w-12 h-12 mx-auto" />
+              <FileText className="w-10 h-10 sm:w-12 sm:h-12 mx-auto" />
             ) : (
-              <MessageSquare className="w-12 h-12 mx-auto" />
+              <MessageSquare className="w-10 h-10 sm:w-12 sm:h-12 mx-auto" />
             )}
           </div>
-          <h4 className="text-lg font-medium text-gray-900 mb-2">
+          <h4 className="text-base sm:text-lg font-medium text-gray-900 mb-2">
             No {type} found
           </h4>
-          <p className="text-gray-500">
+          <p className="text-sm sm:text-base text-gray-500">
             This author hasn't made any {type === 'submissions' ? 'submissions' : 'comments'} yet.
           </p>
         </div>

@@ -112,7 +112,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
   };
 
   return (
-    <nav className="flex items-center justify-center space-x-1 mt-8" aria-label="Pagination">
+    <nav className="flex items-center justify-center space-x-1 mt-8 overflow-x-auto" aria-label="Pagination">
       {/* First page */}
       {startPage > 0 && (
         <>
@@ -182,7 +182,7 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
       )}
 
       {/* Go to page */}
-      <div className="ml-2 sm:ml-4">
+      <div className="ml-2 sm:ml-4 flex-shrink-0">
         <InlinePageGoto currentPage={currentPage} totalPages={totalPages} basePath={basePath} />
       </div>
     </nav>

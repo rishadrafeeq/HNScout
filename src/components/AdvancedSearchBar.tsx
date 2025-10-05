@@ -178,7 +178,7 @@ export function AdvancedSearchBar() {
 
       {/* Advanced Filters Dropdown */}
       {showFilters && (
-        <div ref={filterRef} className="absolute top-full right-0 mt-2 w-96 bg-white rounded-lg border border-gray-200 shadow-lg z-50 p-4">
+        <div ref={filterRef} className="absolute top-full right-0 mt-2 w-80 sm:w-96 bg-white rounded-lg border border-gray-200 shadow-lg z-50 p-3 sm:p-4 max-h-[80vh] overflow-y-auto">
           <div className="space-y-4">
             <div className="grid grid-cols-1 gap-4">
               {/* Content Type */}
@@ -274,7 +274,7 @@ export function AdvancedSearchBar() {
                   <Calendar className="w-4 h-4 inline mr-1" />
                   Date Range
                 </label>
-                <div className="flex space-x-2">
+                <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
                   <input
                     type="date"
                     placeholder="From"
@@ -300,7 +300,7 @@ export function AdvancedSearchBar() {
             </div>
 
             {/* Filter Actions */}
-            <div className="flex items-center justify-between pt-2 border-t border-gray-200">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-2 border-t border-gray-200 space-y-2 sm:space-y-0">
               <button
                 type="button"
                 onClick={clearFilters}
