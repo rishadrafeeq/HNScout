@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Github, ExternalLink, Heart } from 'lucide-react';
+import { ExternalLink, Heart } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -65,16 +65,6 @@ export function Footer() {
               >
                 Privacy Policy
               </Link>
-              <a 
-                href="https://github.com/hnscout/hnscout" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="flex items-center space-x-1 text-sm text-gray-600 hover:text-orange-600 transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                <span>GitHub</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
               <a 
                 href="https://hn.algolia.com/api" 
                 target="_blank" 

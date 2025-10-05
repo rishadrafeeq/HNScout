@@ -3,7 +3,7 @@
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Zap, Bookmark, Clock } from 'lucide-react';
+import { Zap, Bookmark, Clock, Info } from 'lucide-react';
 import { AdvancedSearchBar } from './AdvancedSearchBar';
 import { FilterDropdown } from './FilterDropdown';
 
@@ -51,6 +51,13 @@ function HeaderContent() {
                 <Bookmark className="w-4 h-4" />
                 <span>Reading List</span>
               </Link>
+              <Link
+                href="/about"
+                className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors"
+              >
+                <Info className="w-4 h-4" />
+                <span>About</span>
+              </Link>
             </nav>
           </div>
           
@@ -86,6 +93,13 @@ function HeaderContent() {
               <Bookmark className="w-4 h-4" />
               <span>Reading List</span>
             </Link>
+            <Link
+              href="/about"
+              className="flex items-center space-x-1 text-gray-600 hover:text-orange-600 transition-colors text-sm"
+            >
+              <Info className="w-4 h-4" />
+              <span>About</span>
+            </Link>
             <div className="sm:hidden">
               <FilterDropdown />
             </div>
@@ -109,6 +123,8 @@ export function Header() {
               </Link>
               <nav className="hidden lg:flex items-center space-x-6">
                 <span className="text-gray-600">Latest Stories</span>
+                <span className="text-gray-600">Reading List</span>
+                <span className="text-gray-600">About</span>
               </nav>
             </div>
             <div className="flex items-center space-x-1 sm:space-x-2 lg:space-x-3">
@@ -120,6 +136,7 @@ export function Header() {
             <div className="flex items-center justify-center space-x-4">
               <span className="text-gray-600 text-sm">Latest</span>
               <span className="text-gray-600 text-sm">Reading List</span>
+              <span className="text-gray-600 text-sm">About</span>
               <div className="sm:hidden w-16 h-6 bg-gray-200 rounded animate-pulse"></div>
             </div>
           </div>

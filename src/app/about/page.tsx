@@ -138,16 +138,7 @@ export default function AboutPage() {
             HN Scout is an open-source project. We welcome contributions, feedback, and suggestions 
             from the community.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="https://github.com/hnscout/hnscout" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center space-x-2 bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors"
-            >
-              <Code className="w-4 h-4" />
-              <span>View on GitHub</span>
-            </a>
+          <div className="flex justify-center">
             <a 
               href="/" 
               className="inline-flex items-center space-x-2 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
