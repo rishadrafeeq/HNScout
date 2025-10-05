@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, ArrowRight } from 'lucide-react';
 import { PaginationData } from '@/lib/pagination';
 
@@ -15,6 +16,7 @@ function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: nu
   const [pageInput, setPageInput] = useState('');
   const [isActive, setIsActive] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setIsMounted(true);
@@ -25,8 +27,9 @@ function InlinePageGoto({ currentPage, totalPages, basePath }: { currentPage: nu
     const pageNum = parseInt(pageInput, 10);
     
     if (pageNum >= 1 && pageNum <= totalPages && pageNum !== currentPage + 1) {
+      // Convert 1-based page number to URL path
       const targetPage = pageNum === 1 ? basePath : `${basePath}/${pageNum}`;
-      window.location.href = targetPage;
+      router.push(targetPage);
     }
     
     setPageInput('');
@@ -108,6 +111,10 @@ export function Pagination({ pagination, basePath }: PaginationProps) {
   if (totalPages <= 1) return null;
 
   const getPageHref = (page: number) => {
+    // page is 0-based, but URLs are 1-based
+    // page 0 = basePath (no page number in URL)
+    // page 1 = basePath/2 (page 2 in URL)
+    // page 2 = basePath/3 (page 3 in URL)
     return page === 0 ? basePath : `${basePath}/${page + 1}`;
   };
 

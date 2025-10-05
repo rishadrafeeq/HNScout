@@ -54,10 +54,13 @@ export function generatePaginationData(
  * Validate page number and return valid page
  */
 export function validatePageNumber(page: string | string[] | undefined, totalPages: number): number {
-  const pageNum = Array.isArray(page) ? parseInt(page[0], 10) : parseInt(page || '0', 10);
+  const pageNum = Array.isArray(page) ? parseInt(page[0], 10) : parseInt(page || '1', 10);
   
-  if (isNaN(pageNum) || pageNum < 0) return 0;
-  if (pageNum >= totalPages) return Math.max(0, totalPages - 1);
+  // Convert 1-based URL page to 0-based internal page
+  const internalPage = pageNum - 1;
   
-  return pageNum;
+  if (isNaN(internalPage) || internalPage < 0) return 0;
+  if (internalPage >= totalPages) return Math.max(0, totalPages - 1);
+  
+  return internalPage;
 }
