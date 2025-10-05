@@ -70,6 +70,8 @@ Lucide React – for clean icons
 
 date-fns – for date formatting
 
+I have added file .vercelignore to prevent unnecessary files from being uploaded during deployment
+
 Extra Features
 Reading List
 
