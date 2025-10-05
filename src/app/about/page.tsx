@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { Zap, Target, Users, Code, Heart } from 'lucide-react';
 
 export default function AboutPage() {
@@ -26,7 +27,7 @@ export default function AboutPage() {
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">Our Mission</h2>
               <p className="text-gray-700 leading-relaxed mb-4">
                 HN Scout was created to solve a simple problem: finding quality content on Hacker News 
-                can be overwhelming. With thousands of stories posted daily, it's easy to miss the 
+                can be overwhelming. With thousands of stories posted daily, it&apos;s easy to miss the 
                 most valuable discussions and insights.
               </p>
               <p className="text-gray-700 leading-relaxed">
@@ -139,13 +140,13 @@ export default function AboutPage() {
             from the community.
           </p>
           <div className="flex justify-center">
-            <a 
+            <Link 
               href="/" 
               className="inline-flex items-center space-x-2 bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
             >
               <Zap className="w-4 h-4" />
               <span>Start Reading</span>
-            </a>
+            </Link>
           </div>
         </section>
       </div>

@@ -16,7 +16,7 @@ export default function PrivacyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Introduction</h2>
             <p className="text-gray-700 leading-relaxed mb-4">
-              HN Scout ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy 
+              HN Scout (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy 
               explains how we collect, use, and safeguard your information when you use our website.
             </p>
           </section>
@@ -37,7 +37,7 @@ export default function PrivacyPage() {
               <div>
                 <h3 className="text-xl font-medium text-gray-900 mb-2">Local Storage</h3>
                 <p className="text-gray-700">
-                  We use your browser's local storage to save your reading list and preferences. 
+                  We use your browser&apos;s local storage to save your reading list and preferences. 
                   This data is stored locally on your device and is not transmitted to our servers.
                 </p>
               </div>
@@ -101,7 +101,7 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Changes to This Policy</h2>
             <p className="text-gray-700">
               We may update this Privacy Policy from time to time. We will notify you of any 
-              changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
+              changes by posting the new Privacy Policy on this page and updating the &quot;Last updated&quot; date.
             </p>
           </section>
 
