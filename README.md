@@ -79,7 +79,15 @@ Save interesting stories in your browser to read later on the /reading-list page
 
 Author Profiles
 
-View an author’s details, bio, and past posts.
+View an author's details, bio, and past posts.
+
+About Page
+
+Learn more about HN Scout's mission, features, and values. Accessible via the navbar or footer navigation.
+
+Professional Footer
+
+Clean footer design with navigation links, legal information, and external resources for a complete user experience.
 
 Smart Error Handling
 

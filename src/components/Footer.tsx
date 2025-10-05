@@ -59,12 +59,6 @@ export function Footer() {
               Legal & Resources
             </h4>
             <div className="space-y-2">
-              <Link 
-                href="/privacy" 
-                className="block text-sm text-gray-600 hover:text-orange-600 transition-colors"
-              >
-                Privacy Policy
-              </Link>
               <a 
                 href="https://hn.algolia.com/api" 
                 target="_blank" 
