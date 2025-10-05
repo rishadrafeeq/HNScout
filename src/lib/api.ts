@@ -1,4 +1,4 @@
-import { HNStory, HNSearchResponse, HNItemResponse, HNComment, HNAuthor, HNAuthorResponse } from '@/types/hn';
+import { HNStory, HNSearchResponse, HNItemResponse, HNComment, HNAuthor } from '@/types/hn';
 
 const BASE_URL = 'https://hn.algolia.com/api/v1';
 

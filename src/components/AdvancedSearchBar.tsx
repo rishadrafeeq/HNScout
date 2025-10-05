@@ -25,8 +25,8 @@ export function AdvancedSearchBar() {
   const filterRef = useRef<HTMLDivElement>(null);
   const [filters, setFilters] = useState<SearchFilters>({
     query: searchParams.get('search') || '',
-    contentType: (searchParams.get('type') as any) || 'stories',
-    sortBy: (searchParams.get('sortBy') as any) || 'relevance',
+    contentType: (searchParams.get('type') as SearchFilters['contentType']) || 'stories',
+    sortBy: (searchParams.get('sortBy') as SearchFilters['sortBy']) || 'relevance',
     author: searchParams.get('author') || '',
     minPoints: searchParams.get('minPoints') ? parseInt(searchParams.get('minPoints')!) : undefined,
     minComments: searchParams.get('minComments') ? parseInt(searchParams.get('minComments')!) : undefined,
@@ -188,7 +188,7 @@ export function AdvancedSearchBar() {
                 </label>
                 <select
                   value={filters.contentType}
-                  onChange={(e) => setFilters(prev => ({ ...prev, contentType: e.target.value as any }))}
+                  onChange={(e) => setFilters(prev => ({ ...prev, contentType: e.target.value as SearchFilters['contentType'] }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm text-black"
                 >
                   <option value="stories">Stories</option>
@@ -207,7 +207,7 @@ export function AdvancedSearchBar() {
                 </label>
                 <select
                   value={filters.sortBy}
-                  onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as any }))}
+                  onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value as SearchFilters['sortBy'] }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent text-sm text-black"
                 >
                   <option value="relevance">Relevance</option>

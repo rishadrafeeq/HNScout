@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { hnApi } from '@/lib/api';
-import { HNStory, HNComment } from '@/types/hn';
-import { processStories, ProcessedStory } from '@/lib/qualityScore';
+import { HNComment, ProcessedStory } from '@/types/hn';
+import { processStories } from '@/lib/qualityScore';
 import { StoryCard } from './StoryCard';
 import { ErrorState } from './ErrorState';
 import { StoryListSkeleton } from './ui/Skeleton';
@@ -67,11 +67,11 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
   const [content, setContent] = useState<ProcessedStory[] | HNComment[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
   const [totalHits, setTotalHits] = useState(0);
 
-  const fetchContent = async (page: number = 0) => {
+  const fetchContent = useCallback(async (page: number = 0) => {
     try {
       setIsLoading(true);
       setError(null);
@@ -84,9 +84,10 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
         setTotalHits(response.nbHits);
       } else {
         const response = await hnApi.getAuthorComments(username, page, 20);
-        setContent(response.hits.filter((hit): hit is HNComment => 
+        const comments = response.hits.filter((hit) => 
           hit._tags.includes('comment')
-        ));
+        ) as HNComment[];
+        setContent(comments);
         setTotalPages(Math.ceil(response.nbHits / 20));
         setTotalHits(response.nbHits);
       }
@@ -96,11 +97,11 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [username, type]);
 
   useEffect(() => {
     fetchContent(currentPage);
-  }, [username, type, currentPage]);
+  }, [username, type, currentPage, fetchContent]);
 
   if (isLoading) {
     return (
@@ -167,7 +168,7 @@ export function AuthorContent({ username, type }: AuthorContentProps) {
             No {type} found
           </h4>
           <p className="text-sm sm:text-base text-gray-500">
-            This author hasn't made any {type === 'submissions' ? 'submissions' : 'comments'} yet.
+            This author hasn&apos;t made any {type === 'submissions' ? 'submissions' : 'comments'} yet.
           </p>
         </div>
       ) : (

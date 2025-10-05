@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { SavedStory } from '@/types/hn';
-import { getReadingList, removeFromReadingList, clearReadingList } from '@/lib/readingList';
+import { getReadingList, clearReadingList } from '@/lib/readingList';
 import { StoryCard } from '@/components/StoryCard';
-import { ErrorState } from '@/components/ErrorState';
 import { BookmarkCheck, Trash2, Clock } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
@@ -20,12 +20,6 @@ export default function ReadingListPage() {
     setIsLoading(false);
   }, []);
 
-  const handleRemoveStory = (objectID: string) => {
-    const success = removeFromReadingList(objectID);
-    if (success) {
-      setSavedStories(prev => prev.filter(story => story.objectID !== objectID));
-    }
-  };
 
   const handleClearAll = () => {
     if (window.confirm('Are you sure you want to clear your entire reading list? This action cannot be undone.')) {
@@ -105,12 +99,12 @@ export default function ReadingListPage() {
           <p className="text-gray-500 mb-6">
             Start building your reading list by saving interesting stories from the main page.
           </p>
-          <a
+          <Link
             href="/"
             className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors"
           >
             Browse Stories
-          </a>
+          </Link>
         </div>
       ) : (
         <div className="space-y-4">

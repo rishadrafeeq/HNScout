@@ -1,5 +1,4 @@
 import { hnApi } from '@/lib/api';
-import { HNAuthor } from '@/types/hn';
 import { ErrorState } from '@/components/ErrorState';
 import { AuthorTabs } from '@/components/AuthorTabs';
 import { User, Calendar, Trophy, MessageSquare, FileText, Clock } from 'lucide-react';

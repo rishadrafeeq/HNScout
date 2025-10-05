@@ -2,7 +2,7 @@
 
 import { Suspense, useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { Zap, Bookmark, Clock } from 'lucide-react';
 import { AdvancedSearchBar } from './AdvancedSearchBar';
 import { FilterDropdown } from './FilterDropdown';
@@ -10,7 +10,6 @@ import { FilterDropdown } from './FilterDropdown';
 function HeaderContent() {
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     setIsMounted(true);
